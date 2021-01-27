@@ -24,7 +24,14 @@ filebeat_repo:
       - pkg: filebeat.install
 {% endif %}
 
+{% if salt['grains.get']('os_family') == 'FreeBSD' %}
+filebeat.install:
+  pkg.installed:
+    - name: beats7
+
+{% else %}
 filebeat.install:
   pkg.installed:
     - name: filebeat
+{% endif %}
 
